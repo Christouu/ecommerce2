@@ -8,6 +8,7 @@ const Home: React.FC = () => {
       <Navbar />
       <Annoucement />
       <Slider />
+      <Slider />
     </div>
   );
 };
