@@ -1,5 +1,8 @@
 import Annoucement from "../components/Annoucment/Annoucement";
+import Categories from "../components/Categories/Categories";
 import Navbar from "../components/Navbar/Navbar";
+import NewsLetter from "../components/NewsLetter/NewsLetter";
+import Products from "../components/Products/Products";
 import Slider from "../components/Slider/Slider";
 
 const Home: React.FC = () => {
@@ -8,7 +11,9 @@ const Home: React.FC = () => {
       <Navbar />
       <Annoucement />
       <Slider />
-      <Slider />
+      <Categories />
+      <Products />
+      <NewsLetter />
     </div>
   );
 };

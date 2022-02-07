@@ -54,5 +54,5 @@ export const MenuItem = styled.div`
   font-size: 16px;
   cursor: pointer;
   margin-left: 25px;
-  margin-right: 50px;
+  margin-right: 40px;
 `;
