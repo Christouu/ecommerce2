@@ -1,5 +1,6 @@
 import Annoucement from "../components/Annoucment/Annoucement";
 import Categories from "../components/Categories/Categories";
+import Footer from "../components/Footer/Footer";
 import Navbar from "../components/Navbar/Navbar";
 import NewsLetter from "../components/NewsLetter/NewsLetter";
 import Products from "../components/Products/Products";
@@ -14,6 +15,7 @@ const Home: React.FC = () => {
       <Categories />
       <Products />
       <NewsLetter />
+      <Footer />
     </div>
   );
 };
