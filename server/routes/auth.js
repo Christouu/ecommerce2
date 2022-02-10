@@ -33,6 +33,7 @@ router.post("/login", async (req, res) => {
       user.password,
       process.env.CRYPTO_KEY
     );
+
     const originalPassword = hashedPassword.toString(cryptojs.enc.Utf8);
 
     originalPassword != req.body.password &&

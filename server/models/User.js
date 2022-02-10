@@ -11,12 +11,14 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      match: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
     },
     password: {
       type: String,
       required: true,
+      minlength: 6,
     },
-    isAdming: {
+    isAdmin: {
       type: Boolean,
       default: false,
     },
