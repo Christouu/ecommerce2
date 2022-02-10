@@ -1,26 +1,22 @@
 const router = require("express").Router();
-const {
-  verifyTokenAnAuthorization,
-  verifyTokenAndAdmin,
-} = require("../middlewares/verifyToken");
+const { verifyTokenAndAdmin } = require("../middlewares/verifyToken");
 
 const Product = require("../models/Product");
 
 //create product
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
+  const product = new Product({
+    title: req.body.title,
+    desc: req.body.desc,
+    image: req.body.image,
+    categories: req.body.categories,
+    size: req.body.size,
+    color: req.body.color,
+    price: req.body.price,
+  });
   try {
-    const product = new Product({
-      title: req.body.title,
-      desc: req.body.desc,
-      image: req.body.image,
-      categories: req.body.categories,
-      size: req.body.size,
-      color: req.body.color,
-      price: req.body.price,
-    });
-
     const createdProduct = await product.save();
-    res.status(200).json(createdProduct);
+    res.status(201).json(createdProduct);
   } catch (error) {
     res.status(500).json(error);
   }
