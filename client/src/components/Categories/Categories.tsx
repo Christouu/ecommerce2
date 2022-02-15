@@ -10,6 +10,7 @@ const Categories: React.FC = () => {
           key={category.id}
           title={category.title}
           img={category.img}
+          cat={category.category}
         />
       ))}
     </Container>
