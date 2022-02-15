@@ -15,6 +15,7 @@ import Badge from "@mui/material/Badge";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
 import SearchIcon from "@mui/icons-material/Search";
+import { Link } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   return (
@@ -28,7 +29,9 @@ const Navbar: React.FC = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>Kristou</Logo>
+          <Link to={"/"}>
+            <Logo>Kristou</Logo>
+          </Link>
         </Center>
         <Right>
           <MenuItem>REGISTER</MenuItem>

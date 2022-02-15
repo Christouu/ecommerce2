@@ -1,3 +1,6 @@
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 import Annoucement from "../../components/Annoucment/Annoucement";
 import Footer from "../../components/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
@@ -25,35 +28,52 @@ import {
 
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+import { publicRequest } from "../../requestMethods";
 
 const Product: React.FC = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [product, setProduct] = useState<any>({});
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get(`/products/find/${id}`);
+
+        setProduct(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getProduct();
+  }, [id]);
+
   return (
     <Container>
       <Navbar />
       <Annoucement />
       <Wrapper>
         <ImageContainer>
-          <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />
+          <Image src={product.image} />
         </ImageContainer>
         <InfoContainer>
-          <Title>asd</Title>
-          <Desc>alalalalalalal</Desc>
-          <Price>20$</Price>
+          <Title>{product.title}</Title>
+          <Desc>{product.desc}</Desc>
+          <Price>$ {product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black" />
-              <FilterColor color="blue" />
-              <FilterColor color="red" />
+              {product.color?.map((c: string) => (
+                <FilterColor color={c} key={c} />
+              ))}
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
               <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
-                <FilterSizeOption>M</FilterSizeOption>
-                <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
+                {product.size?.map((c: string) => (
+                  <FilterSizeOption key={c}>{c}</FilterSizeOption>
+                ))}
               </FilterSize>
             </Filter>
           </FilterContainer>
