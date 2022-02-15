@@ -35,8 +35,12 @@ import {
 
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { useSelector } from "react-redux";
 
 const Cart: React.FC = () => {
+  const cart = useSelector((state: any) => state.cart);
+  console.log(cart.products);
+
   return (
     <Container>
       <Navbar />
@@ -46,64 +50,41 @@ const Cart: React.FC = () => {
         <Top>
           <TopButton theme="normal">CONTINUE SHOPPING</TopButton>
           <TopTexts>
-            <TopText>Shopping Bag (2)</TopText>
+            <TopText>Shopping Bag ({cart.quantity})</TopText>
             <TopText>Our Whislist</TopText>
           </TopTexts>
           <TopButton theme="filled">CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
           <Info>
-            <Product>
-              <ProductDetails>
-                <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
-                <Details>
-                  <ProductName>
-                    <b>Prodcut</b> KECKITE NA JORO BEKAMA
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 12332132132
-                  </ProductId>
-                  <ProductColor color="black" />
-                  <ProductSize>
-                    <b>Size:</b>11
-                  </ProductSize>
-                </Details>
-              </ProductDetails>
-              <ProductPrice>
-                <ProductAmountContainer>
-                  <AddIcon />
-                  <ProductQuantity>1</ProductQuantity>
-                  <RemoveIcon />
-                </ProductAmountContainer>
-                <ProductAmount>30$</ProductAmount>
-              </ProductPrice>
-            </Product>
+            {cart.products.map((p: any) => (
+              <Product key={p._id}>
+                <ProductDetails>
+                  <Image src={p.image} />
+                  <Details>
+                    <ProductName>
+                      <b>Prodcut</b> {p.title}
+                    </ProductName>
+                    <ProductId>
+                      <b>ID:</b> {p._id}
+                    </ProductId>
+                    <ProductColor color={p.color} />
+                    <ProductSize>
+                      <b>Size:</b> {p.size}
+                    </ProductSize>
+                  </Details>
+                </ProductDetails>
+                <ProductPrice>
+                  <ProductAmountContainer>
+                    <AddIcon />
+                    <ProductQuantity>{p.quantity}</ProductQuantity>
+                    <RemoveIcon />
+                  </ProductAmountContainer>
+                  <ProductAmount>$ {p.price * p.quantity}</ProductAmount>
+                </ProductPrice>
+              </Product>
+            ))}
             <Hr />
-            <Product>
-              <ProductDetails>
-                <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
-                <Details>
-                  <ProductName>
-                    <b>Prodcut:</b> KECKITE NA JORO BEKAMA
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 12332132132
-                  </ProductId>
-                  <ProductColor color="black" />
-                  <ProductSize>
-                    <b>Size:</b> 11
-                  </ProductSize>
-                </Details>
-              </ProductDetails>
-              <ProductPrice>
-                <ProductAmountContainer>
-                  <AddIcon />
-                  <ProductQuantity>1</ProductQuantity>
-                  <RemoveIcon />
-                </ProductAmountContainer>
-                <ProductAmount>30$</ProductAmount>
-              </ProductPrice>
-            </Product>
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
