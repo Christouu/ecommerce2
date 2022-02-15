@@ -29,11 +29,17 @@ import {
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { publicRequest } from "../../requestMethods";
+import { addProduct } from "../../redux/cartRedux";
+import { useDispatch } from "react-redux";
 
 const Product: React.FC = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState<any>({});
+  const [quantity, setQuantity] = useState<number>(1);
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
 
   useEffect(() => {
     const getProduct = async () => {
@@ -48,6 +54,19 @@ const Product: React.FC = () => {
 
     getProduct();
   }, [id]);
+
+  const handleQuantity = (string: string) => {
+    if (string === "desc") {
+      quantity > 1 && setQuantity((prev) => prev - 1);
+    } else if (string === "inc") {
+      setQuantity((prev) => prev + 1);
+    }
+  };
+
+  const handleClick = () => {
+    //handle cart
+    dispatch(addProduct({ ...product, quantity, size, color }));
+  };
 
   return (
     <Container>
@@ -65,12 +84,12 @@ const Product: React.FC = () => {
             <Filter>
               <FilterTitle>Color</FilterTitle>
               {product.color?.map((c: string) => (
-                <FilterColor color={c} key={c} />
+                <FilterColor color={c} key={c} onClick={() => setColor(c)} />
               ))}
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
-              <FilterSize>
+              <FilterSize onChange={(e) => setSize(e.target.value)}>
                 {product.size?.map((c: string) => (
                   <FilterSizeOption key={c}>{c}</FilterSizeOption>
                 ))}
@@ -79,11 +98,17 @@ const Product: React.FC = () => {
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <RemoveIcon style={{ cursor: "pointer" }} />
-              <Amount>1</Amount>
-              <AddIcon style={{ cursor: "pointer" }} />
+              <RemoveIcon
+                style={{ cursor: "pointer" }}
+                onClick={() => handleQuantity("desc")}
+              />
+              <Amount>{quantity}</Amount>
+              <AddIcon
+                style={{ cursor: "pointer" }}
+                onClick={() => handleQuantity("inc")}
+              />
             </AmountContainer>
-            <Button>ADD TO CART</Button>
+            <Button onClick={handleClick}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>

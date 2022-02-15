@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const userRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
 const productRouter = require("./routes/product");
@@ -15,6 +16,7 @@ mongoose
   .then(() => console.log("DB connection successfull"))
   .catch((e) => console.log(e));
 
+app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRouter);
