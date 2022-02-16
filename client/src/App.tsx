@@ -6,6 +6,7 @@ import ProductList from "./pages/ProductList/ProductList";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import Cart from "./pages/Cart/Cart";
+import Success from "./pages/Success/Success";
 
 function App() {
   let user = false;
@@ -19,6 +20,8 @@ function App() {
       <Route path="/product/:id" element={<Product />} />
 
       <Route path="/cart" element={<Cart />} />
+
+      <Route path="/success" element={<Success />} />
 
       <Route path="/login" element={user ? <Navigate to={"/"} /> : <Login />} />
 
