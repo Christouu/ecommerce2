@@ -10,7 +10,7 @@ router.post("/register", async (req, res) => {
     email: req.body.email,
     password: cryptojs.AES.encrypt(
       req.body.password,
-      process.env.CRYPTO_KEY
+      process.env.CRYPTOJS_SECRET
     ).toString(),
   });
 
@@ -31,7 +31,7 @@ router.post("/login", async (req, res) => {
 
     const hashedPassword = cryptojs.AES.decrypt(
       user.password,
-      process.env.CRYPTO_KEY
+      process.env.CRYPTOJS_SECRET
     );
 
     const originalPassword = hashedPassword.toString(cryptojs.enc.Utf8);
