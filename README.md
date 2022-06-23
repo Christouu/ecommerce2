@@ -26,3 +26,4 @@ Ecommerce Website using MERN stack
         - Stripe
 
 
+Ecommerce is a web application, created with MERN stack and stripe, where users can chose to buy products. If you liked some product you can see its information and you can add it to your cart. You can chose the quantity amount for each product. There is also an admin page where you, as an owner of application , can add, update or remove products from your app. You can manage users accounts and you can manage user's orders and complete, return them.
